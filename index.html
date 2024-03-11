@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가우스 최고</title>
+    <link rel="icon" href="/favicon.png">
+
+</head>
+<body>
+    <div class="container">
+    <table>
+        <tr>
+          <td id="n1">1 </td>
+          <td id="n5">5 </td>
+          <td id="n9">9 </td>
+          <td id="n13">13</td>
+        </tr>
+        <tr>
+          <td id="n2">2 </td>
+          <td id="n6">6 </td>
+          <td id="n10">10</td>
+          <td id="n14">14</td>
+        </tr>
+        <tr>
+          <td id="n3">3 </td>
+          <td id="n7">7 </td>
+          <td id="n11">11</td>
+          <td id="n15">15</td>
+        </tr>
+        <tr>
+            <td id="n4">4 </td>
+            <td id="n8">8 </td>
+            <td id="n12">12</td>
+            <td id="n16">16</td>
+          </tr>
+      </table>
+      <button class="button-29" id="btn" role="button">뽑기</button>
+    </div>
+</body>
+<style>
+    body {
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
+        text-align: center;
+    }
+
+    table {
+        border-collapse : collapse;
+        margin: 0 auto;
+    }  /*이중선 제거*/
+
+    td {
+      margin: 0 auto;
+         width: 12vw;
+         height: 12vw;
+         border: 1px solid #000;
+         cursor: pointer;
+         font-size:5vw;
+         font-weight: bold;
+         color: silver;
+         /* text-shadow: 2px 2px 2px gray; */
+         text-align: center;
+         vertical-align: top;	/* 위 */
+         vertical-align: bottom;   /* 아래 */
+         vertical-align: middle;   /* 가운데 */
+       }
+
+       .button-29 {
+        margin-top: 10px;
+  align-items: center;
+  appearance: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: inline-flex;
+  display: inline-flex;
+  height: 60px;
+  width: 60%;
+  max-width: max-content/50;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  font-size: 18px;
+
+       }
+/* .button-29 {
+  margin-top: 10px;
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%);
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, .4) 0 2px 4px,rgba(45, 35, 66, .3) 0 7px 13px -3px,rgba(58, 65, 111, .5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  height: 60px;
+  width: 60%;
+  max-width: max-content/50;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+.button-29:hover {
+  box-shadow: rgba(45, 35, 66, .4) 0 4px 8px, rgba(45, 35, 66, .3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
+} */
+
+     </style>
+<script>
+  // 이미 한 사람들
+  let selected = [];
+  let result = [];
+  // 학생 뽑기 함수
+  function selectStudent() {
+    let numbers = []
+    result = [];
+
+    for (let i = 1; i <= 16; i++) {
+      // 번호 회색으로 초기화
+      // 이미 한 사람들은 리스트에서 제외
+      if (!selected.includes(i)) {
+        document.getElementById("n" + i).style.color = "silver";
+        numbers.push(i);
+      }
+    }
+
+    // 뽑기
+    for (let i = 0; i < 2; i++) {
+        let randomIndex = Math.floor(Math.random() * numbers.length);
+        result.push(numbers[randomIndex]);
+        numbers.splice(randomIndex, 1);
+    }
+
+    // 결과 출력
+    console.log(result)
+
+    // 뽑힌 사람들 글자색 검정색으로 바꾸기
+    document.getElementById("n" + result[0]).style.color = "black"
+    document.getElementById("n" + result[1]).style.color = "black"
+  }
+  
+  // 클릭 이벤트 설정
+  for (let i = 1; i <= 16; i++) {
+    document.getElementById('n' + i).onclick = function() {
+    // 클릭된 상태였으면 클릭 안된 상태로, 아니면 반대로
+    if (selected.includes(i)) {
+      document.getElementById('n' + i).style.color = 'silver';
+      selected = selected.filter(num => num != i);
+    } else if (result.includes(i)) {
+      document.getElementById('n' + i).style.color = 'silver';
+      result = result.filter(num => num != i);
+    }
+     else if (!result.includes(i)) {
+      document.getElementById('n' + i).style.color = 'red';
+      selected.push(i);
+    }
+  }
+  }
+
+  // 버튼 클릭
+  document.getElementById('btn').onclick = function() {
+    selectStudent()
+  }
+</script>
+</html>
